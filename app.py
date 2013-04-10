@@ -55,9 +55,9 @@ def execute(*cmd, **kwargs):
 
 
 def deploy(dir, prog):
-    print execute('git', 'pull', cwd=dir)
-    print execute('python', 'setup.py', 'install', cwd=dir)
-    print execute('/etc/init.d/%s' % prog, 'restart')
+    execute('git', 'pull', cwd=dir)
+    execute('python', 'setup.py', 'install', cwd=dir)
+    execute('/etc/init.d/%s' % prog, 'restart')
 
 
 @app.route('/', methods=["GET", "POST"])
@@ -69,4 +69,4 @@ def index():
 
 
 if __name__ == '__main__':
-    app.run('0.0.0.0', debug=True)
+    app.run('0.0.0.0')

@@ -55,9 +55,9 @@ def execute(*cmd, **kwargs):
 
 
 def deploy(dir, prog):
-    execute('git', 'pull', cwd=dir)
-    execute('python', 'setup.py', 'install', cwd=dir)
-    execute('/etc/init.d/%s' % prog, 'restart')
+    print execute('git', 'pull', cwd=dir)
+    print execute('python', 'setup.py', 'install', cwd=dir)
+    print execute('/etc/init.d/%s' % prog, 'restart')
 
 
 @app.route('/', methods=["GET", "POST"])

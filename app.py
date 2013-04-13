@@ -54,17 +54,20 @@ def execute(*cmd, **kwargs):
         raise
 
 
-def deploy(dir, prog):
-    execute('git', 'pull', cwd=dir)
+def deploy(dir, progs):
+    result = execute('git', 'pull', cwd=dir)[0]
+    if result == 'Already up-to-date.\n':
+        return
     execute('python', 'setup.py', 'install', cwd=dir)
-    execute('/etc/init.d/%s' % prog, 'restart')
+    for prog in progs:
+        execute('/etc/init.d/%s' % prog, 'restart')
 
 
 @app.route('/', methods=["GET", "POST"])
 def index():
     dir = request.args['dir']
-    prog = request.args['prog']
-    deploy(dir, prog)
+    progs = request.args['prog'].split(',')
+    deploy(dir, progs)
     return 'success'
 
 

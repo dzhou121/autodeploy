@@ -16,7 +16,7 @@ lockfile=/var/lock/subsys/$prog
 
 start() {
     echo -n $"Starting $prog: "
-    daemon --user root --pidfile $pidfile "$exec /root/autodeploy/app.py &>/dev/null & echo \$! > $pidfile"
+    daemon --user root --pidfile $pidfile "$exec /usr/share/autodeploy/app.py &>/dev/null & echo \$! > $pidfile"
     retval=$?
     echo
     [ $retval -eq 0 ] && touch $lockfile
